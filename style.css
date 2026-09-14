@@ -234,6 +234,23 @@ main {
   color: var(--text);
 }
 
+.forecast-status {
+  margin: 12px 2px 0;
+  font-weight: 600;
+  color: var(--accent-2);
+}
+
+.forecast-status:empty {
+  display: none;
+}
+
+.forecast-note {
+  margin: 10px 2px 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
 .payments-table {
   width: 100%;
   border-collapse: collapse;

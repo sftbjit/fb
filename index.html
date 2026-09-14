@@ -15,6 +15,7 @@
   <nav class="tabs">
     <button class="tab-btn active" data-tab="collection">Collection Tracker</button>
     <button class="tab-btn" data-tab="sales">Daily Sales</button>
+    <button class="tab-btn" data-tab="forecast">Forecast Monthly Sales</button>
   </nav>
 
   <main>
@@ -115,6 +116,38 @@
         <p class="commission-distribution" id="range-distribution"></p>
       </section>
     </section>
+
+    <section class="tab-panel" id="tab-forecast">
+      <section class="panel">
+        <h2>Forecast Monthly Sales</h2>
+        <div class="sales-controls">
+          <label for="forecast-month">Month</label>
+          <select id="forecast-month"></select>
+          <label for="forecast-year">Year</label>
+          <select id="forecast-year"></select>
+          <button class="btn" id="forecast-load">Forecast</button>
+        </div>
+        <p class="forecast-status" id="forecast-status"></p>
+        <div class="table-wrapper">
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th>Total Sales</th>
+                <th>Net Sales</th>
+                <th>Foodpanda</th>
+                <th>Foodi</th>
+                <th>Commission (7%)</th>
+              </tr>
+            </thead>
+            <tbody id="forecast-body">
+              <tr><td colspan="5" class="empty-msg">Pick a month and year, then click Forecast</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="commission-distribution" id="forecast-distribution"></p>
+        <p class="forecast-note">Forecast blends day-of-week seasonality, the trailing 90-day trend, and the same month from up to 3 previous years.</p>
+      </section>
+    </section>
   </main>
 
   <footer>
@@ -123,5 +156,6 @@
 
   <script src="script.js"></script>
   <script src="sales.js"></script>
+  <script src="forecast.js"></script>
 </body>
 </html>
