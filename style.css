@@ -85,13 +85,28 @@ body {
   font-size: 0.85rem;
 }
 
-.sales-controls input[type="date"] {
+.sales-controls input[type="date"],
+.sales-controls input[type="month"] {
   background: var(--panel-light);
   color: var(--text);
   border: 1px solid var(--panel-light);
   border-radius: 8px;
   padding: 8px 10px;
   font-size: 0.9rem;
+  font-family: inherit;
+  color-scheme: dark;
+}
+
+.sales-controls input[type="date"]:focus,
+.sales-controls input[type="month"]:focus {
+  outline: none;
+  border-color: var(--accent-2);
+}
+
+.sales-controls input[type="date"]::-webkit-calendar-picker-indicator,
+.sales-controls input[type="month"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  cursor: pointer;
 }
 
 .btn {
