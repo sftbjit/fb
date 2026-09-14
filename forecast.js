@@ -5,11 +5,6 @@ const TREND_WINDOW_DAYS = 90;
 const HISTORY_YEARS_BACK = 3;
 const RENT_AMOUNT = 50000;
 
-const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
-
 const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
 const average = (arr) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0);
 
@@ -130,18 +125,9 @@ async function forecastMonth(targetYear, targetMonth) {
 }
 
 function populateForecastSelectors() {
-  const monthSelect = document.getElementById("forecast-month");
-  const yearSelect = document.getElementById("forecast-year");
+  const monthInput = document.getElementById("forecast-month");
   const today = new Date();
-
-  monthSelect.innerHTML = MONTH_NAMES.map((name, i) => `<option value="${i + 1}">${name}</option>`).join("");
-  monthSelect.value = today.getMonth() + 1;
-
-  const currentYear = today.getFullYear();
-  const years = [];
-  for (let y = currentYear - HISTORY_YEARS_BACK; y <= currentYear + 1; y++) years.push(y);
-  yearSelect.innerHTML = years.map((y) => `<option value="${y}">${y}</option>`).join("");
-  yearSelect.value = currentYear;
+  monthInput.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}`;
 }
 
 function renderForecastDistribution(commission) {
@@ -171,8 +157,9 @@ function initForecast() {
   const status = document.getElementById("forecast-status");
 
   document.getElementById("forecast-load").addEventListener("click", async () => {
-    const month = Number(document.getElementById("forecast-month").value);
-    const year = Number(document.getElementById("forecast-year").value);
+    const monthValue = document.getElementById("forecast-month").value;
+    if (!monthValue) return;
+    const [year, month] = monthValue.split("-").map(Number);
 
     body.innerHTML = `<tr><td colspan="5" class="empty-msg">Calculating forecast...</td></tr>`;
     status.textContent = "";

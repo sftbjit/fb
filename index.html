@@ -122,9 +122,7 @@
         <h2>Forecast Monthly Sales</h2>
         <div class="sales-controls">
           <label for="forecast-month">Month</label>
-          <select id="forecast-month"></select>
-          <label for="forecast-year">Year</label>
-          <select id="forecast-year"></select>
+          <input type="month" id="forecast-month" />
           <button class="btn" id="forecast-load">Forecast</button>
         </div>
         <p class="forecast-status" id="forecast-status"></p>
@@ -140,7 +138,7 @@
               </tr>
             </thead>
             <tbody id="forecast-body">
-              <tr><td colspan="5" class="empty-msg">Pick a month and year, then click Forecast</td></tr>
+              <tr><td colspan="5" class="empty-msg">Pick a month, then click Forecast</td></tr>
             </tbody>
           </table>
         </div>
