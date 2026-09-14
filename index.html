@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collection Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1>Collection Tracker</h1>
+    <p class="subtitle">Live overview of contributions and payment schedule</p>
+  </header>
+
+  <main>
+    <section class="summary" id="summary">
+      <!-- Summary cards injected by script.js -->
+    </section>
+
+    <section class="panel">
+      <h2>Contributors</h2>
+      <div class="users" id="users">
+        <!-- User cards injected by script.js -->
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Payment Schedule</h2>
+      <ol class="timeline" id="timeline">
+        <!-- Timeline items injected by script.js -->
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>Updated automatically &middot; <span id="last-updated"></span></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
