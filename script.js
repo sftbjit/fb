@@ -5,7 +5,7 @@ const users = [
   { name: "AH", payments: [25000] },
   { name: "TI", payments: [25000] },
   { name: "SR", payments: [25000] },
-  { name: "SRI", payments: [25000] },
+  { name: "SI", payments: [25000] },
 ];
 
 const paymentSchedule = [
