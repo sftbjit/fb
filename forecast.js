@@ -3,6 +3,7 @@
 
 const TREND_WINDOW_DAYS = 90;
 const HISTORY_YEARS_BACK = 3;
+const RENT_AMOUNT = 50000;
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -143,6 +144,26 @@ function populateForecastSelectors() {
   yearSelect.value = currentYear;
 }
 
+function renderForecastDistribution(commission) {
+  const el = document.getElementById("forecast-distribution");
+
+  if (commission < RENT_AMOUNT) {
+    const items = DISTRIBUTION_USERS.map(
+      (name) => `<span class="dist-item"><strong>${name}</strong>: 0 BDT</span>`
+    ).join("");
+    el.innerHTML = `Rent is covered (commission: ${currency(commission)} BDT). ${items}`;
+    return;
+  }
+
+  const remainder = commission - RENT_AMOUNT;
+  const percent = (100 / DISTRIBUTION_USERS.length).toFixed(0);
+  const share = remainder / DISTRIBUTION_USERS.length;
+  const items = DISTRIBUTION_USERS.map(
+    (name) => `<span class="dist-item"><strong>${name}</strong>: ${percent}% \u2014 ${currency(share)} BDT</span>`
+  ).join("");
+  el.innerHTML = `Rent Covered (${currency(RENT_AMOUNT)} BDT). Commission Distributed: ${items}`;
+}
+
 function initForecast() {
   populateForecastSelectors();
 
@@ -155,7 +176,7 @@ function initForecast() {
 
     body.innerHTML = `<tr><td colspan="5" class="empty-msg">Calculating forecast...</td></tr>`;
     status.textContent = "";
-    renderDistribution("forecast-distribution", 0);
+    document.getElementById("forecast-distribution").innerHTML = "";
 
     const result = await forecastMonth(year, month);
 
@@ -173,7 +194,7 @@ function initForecast() {
         <td>${currency(result.totals.foodi)}</td>
         <td>${currency(commission)}</td>
       </tr>`;
-    renderDistribution("forecast-distribution", commission);
+    renderForecastDistribution(commission);
 
     const statusText = {
       actual: `Actual — all ${result.recordedDays} of ${result.totalDays} days recorded`,
