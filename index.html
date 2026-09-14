@@ -12,43 +12,108 @@
     <p class="subtitle">Live overview of contributions and payment schedule</p>
   </header>
 
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="collection">Collection Tracker</button>
+    <button class="tab-btn" data-tab="sales">Daily Sales</button>
+  </nav>
+
   <main>
-    <section class="summary" id="summary">
-      <!-- Summary cards injected by script.js -->
+    <section class="tab-panel active" id="tab-collection">
+      <section class="summary" id="summary">
+        <!-- Summary cards injected by script.js -->
+      </section>
+
+      <section class="panel">
+        <h2>Contributors</h2>
+        <div class="users" id="users">
+          <!-- User cards injected by script.js -->
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Payment Breakdown</h2>
+        <div class="table-wrapper">
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>1st Payment</th>
+                <th>2nd Payment</th>
+                <th>3rd Payment</th>
+                <th>Total Target</th>
+              </tr>
+            </thead>
+            <tbody id="payments-table-body">
+              <!-- Rows injected by script.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Payment Schedule</h2>
+        <ol class="timeline" id="timeline">
+          <!-- Timeline items injected by script.js -->
+        </ol>
+      </section>
     </section>
 
-    <section class="panel">
-      <h2>Contributors</h2>
-      <div class="users" id="users">
-        <!-- User cards injected by script.js -->
-      </div>
-    </section>
+    <section class="tab-panel" id="tab-sales">
+      <section class="panel">
+        <h2>Single Date</h2>
+        <div class="sales-controls">
+          <label for="single-date">Date</label>
+          <input type="date" id="single-date" />
+          <button class="btn" id="single-date-load">Load</button>
+        </div>
+        <div class="table-wrapper">
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th>Total Sales</th>
+                <th>Net Sales</th>
+                <th>Foodpanda</th>
+                <th>Foodi</th>
+                <th>Commission (7%)</th>
+              </tr>
+            </thead>
+            <tbody id="single-date-body">
+              <tr><td colspan="5" class="empty-msg">Pick a date and click Load</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="commission-distribution" id="single-date-distribution"></p>
+      </section>
 
-    <section class="panel">
-      <h2>Payment Breakdown</h2>
-      <div class="table-wrapper">
-        <table class="payments-table">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>1st Payment</th>
-              <th>2nd Payment</th>
-              <th>3rd Payment</th>
-              <th>Total Target</th>
-            </tr>
-          </thead>
-          <tbody id="payments-table-body">
-            <!-- Rows injected by script.js -->
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Payment Schedule</h2>
-      <ol class="timeline" id="timeline">
-        <!-- Timeline items injected by script.js -->
-      </ol>
+      <section class="panel">
+        <h2>Date Range</h2>
+        <div class="sales-controls">
+          <label for="range-start">From</label>
+          <input type="date" id="range-start" />
+          <label for="range-end">To</label>
+          <input type="date" id="range-end" />
+          <button class="btn btn-outline" id="range-last-6-months">Last 6 Months</button>
+          <button class="btn" id="range-load">Load Range</button>
+        </div>
+        <div class="table-wrapper">
+          <table class="payments-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Total Sales</th>
+                <th>Net Sales</th>
+                <th>Foodpanda</th>
+                <th>Foodi</th>
+                <th>Commission (7%)</th>
+              </tr>
+            </thead>
+            <tbody id="range-body">
+              <tr><td colspan="6" class="empty-msg">Pick a range and click Load Range</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="commission-distribution" id="range-distribution"></p>
+      </section>
     </section>
   </main>
 
@@ -57,5 +122,6 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="sales.js"></script>
 </body>
 </html>

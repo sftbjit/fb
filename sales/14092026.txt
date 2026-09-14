@@ -1,0 +1,4 @@
+total_sales:4000
+net_sales:3000
+foodpanda:100
+foodi:50
