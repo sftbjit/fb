@@ -2,10 +2,10 @@
 const TOTAL_TARGET = 900000;
 
 const users = [
-  { name: "AH", payments: [25000, 25000] },
-  { name: "TI", payments: [25000, 25000] },
-  { name: "SR", payments: [25000, 25000] },
-  { name: "SRI", payments: [25000, 25000] },
+  { name: "AH", payments: [25000] },
+  { name: "TI", payments: [25000] },
+  { name: "SR", payments: [25000] },
+  { name: "SRI", payments: [25000] },
 ];
 
 const paymentSchedule = [
@@ -75,11 +75,13 @@ function renderTable() {
       totals.p2 += p2;
       totals.rest += rest;
       totals.target += perUserTarget;
+      const p1Cell = p1 > 0 ? `<span class="paid-badge">${currency(p1)}</span>` : "—";
+      const p2Cell = p2 > 0 ? `<span class="paid-badge">${currency(p2)}</span>` : `<span class="pending-badge">Pending</span>`;
       return `
         <tr>
           <td>${u.name}</td>
-          <td>${currency(p1)}</td>
-          <td>${currency(p2)}</td>
+          <td>${p1Cell}</td>
+          <td>${p2Cell}</td>
           <td>${currency(rest)}</td>
           <td>${currency(perUserTarget)}</td>
         </tr>`;

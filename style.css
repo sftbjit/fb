@@ -170,6 +170,22 @@ main {
   border-bottom: none;
 }
 
+.paid-badge {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.paid-badge::before {
+  content: "\2713";
+  margin-right: 6px;
+}
+
+.pending-badge {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
 .timeline {
   list-style: none;
   margin: 0;
