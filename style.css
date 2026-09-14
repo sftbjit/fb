@@ -129,6 +129,47 @@ main {
   text-align: right;
 }
 
+.table-wrapper {
+  background: var(--panel);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+.payments-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+}
+
+.payments-table th,
+.payments-table td {
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.payments-table thead th {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--panel-light);
+}
+
+.payments-table tbody td {
+  border-bottom: 1px solid var(--panel-light);
+}
+
+.payments-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.payments-table .totals-row td {
+  font-weight: 700;
+  color: var(--accent);
+  border-top: 2px solid var(--panel-light);
+  border-bottom: none;
+}
+
 .timeline {
   list-style: none;
   margin: 0;

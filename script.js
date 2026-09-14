@@ -2,10 +2,10 @@
 const TOTAL_TARGET = 900000;
 
 const users = [
-  { name: "AH", collected: 25000 },
-  { name: "TI", collected: 25000 },
-  { name: "SR", collected: 25000 },
-  { name: "SRI", collected: 25000 },
+  { name: "AH", payments: [25000, 25000] },
+  { name: "TI", payments: [25000, 25000] },
+  { name: "SR", payments: [25000, 25000] },
+  { name: "SRI", payments: [25000, 25000] },
 ];
 
 const paymentSchedule = [
@@ -16,9 +16,10 @@ const paymentSchedule = [
 // -----------------------------------------------------
 
 const currency = (n) => n.toLocaleString("en-US");
+const paidOf = (u) => u.payments.reduce((sum, p) => sum + p, 0);
 
 function renderSummary() {
-  const totalCollected = users.reduce((sum, u) => sum + u.collected, 0);
+  const totalCollected = users.reduce((sum, u) => sum + paidOf(u), 0);
   const remaining = Math.max(TOTAL_TARGET - totalCollected, 0);
   const percent = ((totalCollected / TOTAL_TARGET) * 100).toFixed(1);
 
@@ -45,12 +46,13 @@ function renderUsers() {
 
   document.getElementById("users").innerHTML = users
     .map((u) => {
-      const percent = Math.min((u.collected / perUserTarget) * 100, 100).toFixed(1);
+      const paid = paidOf(u);
+      const percent = Math.min((paid / perUserTarget) * 100, 100).toFixed(1);
       return `
         <div class="user-card">
           <div class="name-row">
             <span class="name">${u.name}</span>
-            <span class="amount">${currency(u.collected)} / ${currency(perUserTarget)}</span>
+            <span class="amount">${currency(paid)} / ${currency(perUserTarget)}</span>
           </div>
           <div class="progress-bar">
             <div class="fill" style="width: ${percent}%"></div>
@@ -59,6 +61,41 @@ function renderUsers() {
         </div>`;
     })
     .join("");
+}
+
+function renderTable() {
+  const perUserTarget = TOTAL_TARGET / users.length;
+  const totals = { p1: 0, p2: 0, rest: 0, target: 0 };
+
+  const rows = users
+    .map((u) => {
+      const [p1 = 0, p2 = 0] = u.payments;
+      const rest = Math.max(perUserTarget - (p1 + p2), 0);
+      totals.p1 += p1;
+      totals.p2 += p2;
+      totals.rest += rest;
+      totals.target += perUserTarget;
+      return `
+        <tr>
+          <td>${u.name}</td>
+          <td>${currency(p1)}</td>
+          <td>${currency(p2)}</td>
+          <td>${currency(rest)}</td>
+          <td>${currency(perUserTarget)}</td>
+        </tr>`;
+    })
+    .join("");
+
+  const footer = `
+    <tr class="totals-row">
+      <td>Total</td>
+      <td>${currency(totals.p1)}</td>
+      <td>${currency(totals.p2)}</td>
+      <td>${currency(totals.rest)}</td>
+      <td>${currency(totals.target)}</td>
+    </tr>`;
+
+  document.getElementById("payments-table-body").innerHTML = rows + footer;
 }
 
 function renderTimeline() {
@@ -89,5 +126,6 @@ function renderFooter() {
 
 renderSummary();
 renderUsers();
+renderTable();
 renderTimeline();
 renderFooter();
