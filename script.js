@@ -1,6 +1,9 @@
 // ---- Data: edit these values to update the site ----
 const TOTAL_TARGET = 900000;
 
+// Planned installment amounts per user, in order (1st, 2nd, 3rd)
+const PAYMENT_PLAN = [25000, 25000, 175000];
+
 const users = [
   { name: "AH", payments: [25000] },
   { name: "TI", payments: [25000] },
@@ -63,26 +66,30 @@ function renderUsers() {
     .join("");
 }
 
+function installmentCell(paidAmount, plannedAmount) {
+  if (paidAmount > 0) {
+    return `<span class="paid-badge">${currency(paidAmount)}</span>`;
+  }
+  return `<span class="pending-badge">Pending ${currency(plannedAmount)}</span>`;
+}
+
 function renderTable() {
   const perUserTarget = TOTAL_TARGET / users.length;
-  const totals = { p1: 0, p2: 0, rest: 0, target: 0 };
+  const totals = { p1: 0, p2: 0, p3: 0, target: 0 };
 
   const rows = users
     .map((u) => {
-      const [p1 = 0, p2 = 0] = u.payments;
-      const rest = Math.max(perUserTarget - (p1 + p2), 0);
+      const [p1 = 0, p2 = 0, p3 = 0] = u.payments;
       totals.p1 += p1;
       totals.p2 += p2;
-      totals.rest += rest;
+      totals.p3 += p3;
       totals.target += perUserTarget;
-      const p1Cell = p1 > 0 ? `<span class="paid-badge">${currency(p1)}</span>` : "—";
-      const p2Cell = p2 > 0 ? `<span class="paid-badge">${currency(p2)}</span>` : `<span class="pending-badge">Pending</span>`;
       return `
         <tr>
           <td>${u.name}</td>
-          <td>${p1Cell}</td>
-          <td>${p2Cell}</td>
-          <td>${currency(rest)}</td>
+          <td>${installmentCell(p1, PAYMENT_PLAN[0])}</td>
+          <td>${installmentCell(p2, PAYMENT_PLAN[1])}</td>
+          <td>${installmentCell(p3, PAYMENT_PLAN[2])}</td>
           <td>${currency(perUserTarget)}</td>
         </tr>`;
     })
@@ -93,7 +100,7 @@ function renderTable() {
       <td>Total</td>
       <td>${currency(totals.p1)}</td>
       <td>${currency(totals.p2)}</td>
-      <td>${currency(totals.rest)}</td>
+      <td>${currency(totals.p3)}</td>
       <td>${currency(totals.target)}</td>
     </tr>`;
 
